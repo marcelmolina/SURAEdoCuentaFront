@@ -1,0 +1,35 @@
+<!-- VERSION NUEVA -->
+<div class="navbar">
+  <div class="container-mobile">
+    <div>
+      <!-- <p *ngIf="descriptor">{{descriptor}}</p> -->
+      <p class="text-medium"></p>
+    </div>
+    <div *ngIf="descriptor" (click)="openList()" class="menu-mobile text-large">
+      <i class="fas fa-bars"></i>
+    </div>
+  </div>
+  <div [ngClass]="{ menus1: !list, menus2: list || !descriptor }">
+    <div
+      *ngFor="let item of menu"
+      [routerLink]="item.routerLink"
+      [ngClass]="{
+        active:
+          router.url.includes(item.routerLink) ||
+          router.url.includes(item.active)
+      }"
+      class="menu-item"
+    >
+      <span>{{ item.menu }}</span>
+      <div class="submenu" [ngClass]="{ hasSubmenu: item.subMenu?.length > 0 }">
+        <div
+          *ngFor="let submenu of item.subMenu"
+          class="submenu-item"
+          (click)="navigateTo(submenu.routerLink)"
+        >
+          {{ submenu.label }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

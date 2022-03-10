@@ -1,0 +1,118 @@
+@import "/src/variables.scss";
+
+.navbar {
+  display: flex;
+  /*Version nueva*/
+  justify-content: space-between;
+  /*Version vieja*/
+  // justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  background-color: $secondary;
+  color: white;
+  height: 45px;
+  font-size: 18px;
+  padding-left: 15px;
+
+  .menus1 {
+    display: flex;
+  }
+
+  .menu-mobile {
+    display: none;
+  }
+
+  .menu-item {
+    margin: 0px 10px;
+    height: 100%;
+    padding: 10px 20px;
+    cursor: pointer;
+    position: relative;
+
+    &.active {
+      background-color: $sura_blue;
+    }
+
+    &:hover {
+      & .submenu {
+        display: block;
+      }
+    }
+  }
+
+  img {
+    cursor: pointer;
+  }
+
+  .submenu {
+    position: absolute;
+    box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%),
+      0 3px 14px 2px rgb(0 0 0 / 12%);
+    background-color: white;
+    color: $base_color_one;
+    font-weight: normal;
+    display: none;
+    top: 40px;
+
+    font-size: 15px;
+    right: 0;
+    text-align: right;
+    z-index: 10;
+
+    &.hasSubmenu {
+      border-top: 4px solid #e3e829;
+    }
+
+    .submenu-item {
+      padding: 10px 10px 10px 30px;
+      min-width: max-content;
+
+      &:hover {
+        background-color: $secondary;
+        color: white;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    // display: block;
+    height: auto;
+    padding: 0;
+
+    /*Nuevo codigo*/
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .menus1 {
+      display: flex;
+      flex-direction: column;
+      display: none;
+    }
+    .menus2 {
+      display: flex;
+      flex-direction: column;
+      display: block;
+    }
+    /*/////////////////////*/
+
+    .container-mobile {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 20px;
+      align-items: center;
+    }
+
+    .menu-mobile {
+      display: block;
+      cursor: pointer;
+    }
+
+    .menu-item {
+      margin: 0;
+      padding: 10px 40px;
+    }
+  }
+}

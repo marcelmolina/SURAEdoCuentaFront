@@ -1,0 +1,13 @@
+.input {
+  min-width: 170px;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-55%);
+  font-size: 14px;
+  margin-left: -30px;
+  pointer-events: none;
+  color: black;
+}

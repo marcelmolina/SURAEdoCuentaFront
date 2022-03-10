@@ -1,0 +1,42 @@
+<div style="position: relative" *ngIf="!isDisabled">
+  <input
+    #fecha
+    type="text"
+    [(ngModel)]="initDate"
+    class="form-control input"
+    [placeholder]="currentPlaceholder"
+    [ngxDatePicker]="dateInstanceSingle"
+    (valueChange)="onChangeSingle(fecha.value)"
+    (change)="onChangeSingle(fecha.value)"
+    (blur)="activeError()"
+    onkeypress="return ( event.keyCode != 32 && ( (event.keyCode >= 48) && (event.keyCode <=57) || (event.keyCode <=45) ) )"
+    (focus)="setPlaceholder()"
+    (focusout)="setPlaceholderOut()"
+  />
+  <i class="far fa-calendar icon"></i>
+  <ngx-date-picker
+    #dateInstanceSingle
+    [options]="singleDatePickerOptions"
+  ></ngx-date-picker>
+</div>
+
+<div style="position: relative" *ngIf="isDisabled">
+  <input
+    #fecha
+    type="text"
+    [(ngModel)]="initDate"
+    disabled
+    class="form-control input"
+    [placeholder]="placeholder"
+    [ngxDatePicker]="dateInstanceSingle"
+    (valueChange)="onChangeSingle(fecha.value)"
+    (change)="onChangeSingle(fecha.value)"
+    (blur)="activeError()"
+    onkeypress="return ( event.keyCode != 32 && ( (event.keyCode >= 48) && (event.keyCode <=57) || (event.keyCode <=45) ) )"
+  />
+  <i class="far fa-calendar icon"></i>
+  <ngx-date-picker
+    #dateInstanceSingle
+    [options]="singleDatePickerOptions"
+  ></ngx-date-picker>
+</div>

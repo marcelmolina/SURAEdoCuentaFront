@@ -1,8 +1,14 @@
 @import "/src/variables.scss";
 
+.form-container {
+  display: flex;
+  justify-content: center;
+}
+
 form {
   padding: 40px 15%;
   padding-bottom: 0;
+  max-width: 800px;
 
   input {
     margin-top: 6px;
@@ -49,7 +55,7 @@ form {
 }
 
 .date-range {
-  width: 49%;
+  width: 100%;
 }
 
 .bottom {
