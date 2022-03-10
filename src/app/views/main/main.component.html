@@ -15,9 +15,11 @@
       <div class="row">
         <div class="form-group">
           <label>Código del agente (*)</label>
-          <input type="text" class="form-control" formControlName="rfc" />
-          <small *ngIf="!f.rfc.valid && f.rfc.touched" class="ml-2 text-danger"
-            >RFC no válido</small
+          <input type="text" class="form-control" formControlName="codigo" />
+          <small
+            *ngIf="!f.codigo.valid && f.codigo.touched"
+            class="ml-2 text-danger"
+            >Código del agente no válido</small
           >
         </div>
       </div>
@@ -65,9 +67,12 @@
         <div class="form-group">
           <label>Tipo de reporte</label>
           <div class="input-icon">
-            <select class="form-control">
-              <option selected value="productividad">Productividad</option>
-              <option value="siniestralidad">Siniestralidad</option>
+            <select
+              class="form-control"
+              (change)="changeTipoReporte($event.target.value)"
+            >
+              <option selected value="comisiones">Comisiones</option>
+              <option value="bonos">Bonos</option>
             </select>
           </div>
         </div>
@@ -75,7 +80,24 @@
     </form>
   </div>
 
-  <div class="bottom">
-    <button class="btn btn-primary" [disabled]="!form.valid">Exportar</button>
+  <div class="bottom" style="gap: 15px">
+    <button
+      class="btn btn-primary"
+      (click)="getFile('pdf')"
+      [disabled]="
+        form.invalid || !validDate1 || !validDate2 || rangeDate1 > rangeDate2
+      "
+    >
+      PDF
+    </button>
+    <button
+      class="btn btn-primary"
+      (click)="getFile('excel')"
+      [disabled]="
+        form.invalid || !validDate1 || !validDate2 || rangeDate1 > rangeDate2
+      "
+    >
+      Excel
+    </button>
   </div>
 </div>

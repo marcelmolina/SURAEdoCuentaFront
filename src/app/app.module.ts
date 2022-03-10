@@ -9,6 +9,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { NavbarBlueComponent } from './components/navbar-blue/navbar-blue.component';
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
 import { NgxDatePickerModule } from '@ngx-tiny/date-picker';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { NgxDatePickerModule } from '@ngx-tiny/date-picker';
     AppRoutingModule,
     ReactiveFormsModule,
     NgxDatePickerModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

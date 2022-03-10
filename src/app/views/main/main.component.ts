@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ApiService } from 'src/app/api.service';
 
 @Component({
   selector: 'app-main',
@@ -20,56 +21,50 @@ export class MainComponent implements OnInit {
   dateString2: any;
   getDateFrom: any;
   getDateTo: any;
+  tipoReporte = 'comisiones';
   menu = [
-    {
-      menu: 'GMM',
-      subMenu: [
-        {
-          label: 'Dashboard',
-          routerLink: '/gmm/dashboard',
-        },
-        {
-          label: 'Mis Trámites',
-          routerLink: '/gmm/mis-tramites',
-        },
-        {
-          label: 'Reportes',
-          routerLink: '/gmm/reportes',
-        },
-      ],
-    },
-    {
-      menu: 'Configuración',
-      subMenu: [
-        {
-          label: 'Reglas de asignación',
-          routerLink: '/configuracion/reglas-de-asignacion',
-        },
-        {
-          label: 'Configurador de trámites',
-          routerLink: '/configuracion/configurador-de-tramites',
-        },
-        {
-          label: 'Reglas SE',
-          routerLink: '/configuracion/reglas-se',
-        },
-      ],
-    },
+    // {
+    //   menu: 'GMM',
+    //   subMenu: [
+    //     {
+    //       label: 'Dashboard',
+    //       routerLink: '/gmm/dashboard',
+    //     },
+    //     {
+    //       label: 'Mis Trámites',
+    //       routerLink: '/gmm/mis-tramites',
+    //     },
+    //     {
+    //       label: 'Reportes',
+    //       routerLink: '/gmm/reportes',
+    //     },
+    //   ],
+    // },
+    // {
+    //   menu: 'Configuración',
+    //   subMenu: [
+    //     {
+    //       label: 'Reglas de asignación',
+    //       routerLink: '/configuracion/reglas-de-asignacion',
+    //     },
+    //     {
+    //       label: 'Configurador de trámites',
+    //       routerLink: '/configuracion/configurador-de-tramites',
+    //     },
+    //     {
+    //       label: 'Reglas SE',
+    //       routerLink: '/configuracion/reglas-se',
+    //     },
+    //   ],
+    // },
   ];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.today = new Date();
     this.form = this.fb.group({
-      rol: ['', Validators.required],
-      usuario: ['', Validators.required],
-      estado: ['', Validators.required],
-      agente: [null, Validators.required],
-      grupo: ['', Validators.required],
-      subgrupo: ['', Validators.required],
-      rfc: [null, Validators.required],
-      tipoTramite: ['', Validators.required],
+      codigo: [null, Validators.required],
     });
   }
 
@@ -152,5 +147,20 @@ export class MainComponent implements OnInit {
   resetFilters() {
     this.clearDP = !this.clearDP;
     this.dateString1 = null;
+  }
+
+  getFile(doc) {
+    const { codigo } = this.form.value;
+    const desde = this.getFormattedDate(this.dateString1, 'yyyy-mm-dd');
+    const hasta = this.getFormattedDate(this.dateString2, 'yyyy-mm-dd');
+    const params = { codigo, desde, hasta };
+
+    this.apiService.getFile(params, this.tipoReporte, doc).subscribe((res) => {
+      console.log(res);
+    });
+  }
+
+  changeTipoReporte(e) {
+    this.tipoReporte = e;
   }
 }
