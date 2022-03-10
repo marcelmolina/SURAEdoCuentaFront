@@ -1,0 +1,264 @@
+<global-header
+  [title]="'SISTEMA DE GESTIÓN DE SINIESTROS'"
+  [switchRol]="false"
+></global-header>
+
+<div class="container container-persona internal-container">
+  <div style="text-align: center">
+    <p class="title-one text-bold">Estados de Cuenta</p>
+  </div>
+
+  <form class="text-secondary text-xsmall" [formGroup]="form">
+    <div class="row">
+      <div class="form-group">
+        <label>Tipo de reporte</label>
+        <div class="input-icon">
+          <select class="form-control">
+            <option selected value="productividad">Productividad</option>
+            <option value="siniestralidad">Siniestralidad</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Asignadas al rol de usuario (*)</label>
+        <div class="input-icon">
+          <select class="form-control" required formControlName="rol">
+            <option selected value="">Analista / Dictaminador</option>
+            <!-- <option
+              *ngFor="let rol of arrayRoles; let i = index"
+              [value]="rol.id"
+            >
+              {{ rol.desc }}
+            </option> -->
+          </select>
+        </div>
+        <div *ngIf="f.rol.invalid && f.rol.touched">
+          <small class="text-danger ml-2"> Rol no válido </small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Agente (*)</label>
+        <select
+          style="
+            visibility: hidden;
+            position: absolute;
+            z-index: -100;
+            width: 0px;
+          "
+          name="agente"
+          class="form-control"
+          formControlName="agente"
+          required
+        >
+          <option value="" selected></option>
+          <!-- <option
+              *ngFor="let rol of arrayAgente; let i = index"
+              [value]="rol.id"
+            >
+              {{ rol.desc }}
+            </option> -->
+        </select>
+        <!-- <input type="text" class="form-control" formControlName="agente" /> -->
+        <div class="form-group mt-1">
+          <!-- <ng-selectize
+            name="selectAgente"
+            [value]="form.value.agente"
+            [config]="singleSelectConfig"
+            [options]="arrayAgente"
+            [placeholder]="''"
+            formControlName="agente"
+            (click)="changeSelectSearchAgente(f.agente)"
+            [enabled]="true"
+            ngDefaultControl
+          ></ng-selectize> -->
+        </div>
+        <small
+          *ngIf="!f.agente.valid && f.agente.touched"
+          class="ml-2 text-danger"
+          >Agente no válido</small
+        >
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group">
+        <label>Asignadas a los siguientes usuarios específicos (*)</label>
+        <div class="input-icon mt-1">
+          <!-- <select class="form-control" required formControlName="usuario">
+            <option selected value="">Nombre y Apellido</option> -->
+          <!-- <option
+              *ngFor="let rol of arrayRoles; let i = index"
+              [value]="rol.id"
+            >
+              {{ rol.desc }}
+            </option> -->
+          <!-- </select> -->
+
+          <select
+            style="
+              visibility: hidden;
+              position: absolute;
+              z-index: -100;
+              width: 0px;
+            "
+            name="usuario"
+            class="form-control"
+            formControlName="usuario"
+            required
+          >
+            <option value="" selected>Nombre y Apellido</option>
+            <!-- <option
+              *ngFor="let rol of arrayRoles; let i = index"
+              [value]="rol.id"
+            >
+              {{ rol.desc }}
+            </option> -->
+          </select>
+
+          <!-- <ng-selectize
+            name="selectUsuario"
+            [value]="form.value.usuario"
+            [config]="singleSelectConfig"
+            [options]="arrayRoles"
+            [placeholder]="'Nombre y Apellido'"
+            formControlName="usuario"
+            (click)="changeSelectSearchUsuario(f.usuario)"
+            [enabled]="true"
+            ngDefaultControl
+          ></ng-selectize> -->
+        </div>
+        <div *ngIf="f.usuario.invalid && f.usuario.touched">
+          <small class="text-danger ml-2"> Usuario no válido </small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Grupo (*)</label>
+        <div class="input-icon">
+          <select class="form-control" required formControlName="grupo">
+            <option selected value="">Seleccione el grupo</option>
+            <!-- <option
+              *ngFor="let rol of arrayRoles; let i = index"
+              [value]="rol.id"
+            >
+              {{ rol.desc }}
+            </option> -->
+          </select>
+        </div>
+        <div *ngIf="f.grupo.invalid && f.grupo.touched">
+          <small class="text-danger ml-2"> Grupo no válido </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="date-range">
+        <label>Rango de Fechas de Recepción (*)</label>
+
+        <div class="section-dates">
+          <div class="form-group fecha-desde">
+            <!-- <app-date-picker
+              placeholder="Desde"
+              (action)="setDesde($event)"
+              [clear]="clearDP"
+              [max]="today"
+              [dateString]="dateString1"
+            ></app-date-picker>
+
+            <small
+              *ngIf="
+                rangeDate1 &&
+                rangeDate2 &&
+                rangeDate1 > rangeDate2 &&
+                dateString1
+              "
+              class="text-danger"
+            >
+              Rango de fecha inválida
+            </small> -->
+          </div>
+          <div class="form-group">
+            <!-- <app-date-picker
+              placeholder="Hasta"
+              (action)="setHasta($event)"
+              [max]="today"
+              [clear]="clearDP"
+              [dateString]="dateString2"
+            ></app-date-picker> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Subgrupo (*)</label>
+        <div class="input-icon">
+          <select class="form-control" required formControlName="subgrupo">
+            <option selected value="">Seleccione el subgrupo</option>
+            <!-- <option
+              *ngFor="let rol of arrayRoles; let i = index"
+              [value]="rol.id"
+            >
+              {{ rol.desc }}
+            </option> -->
+          </select>
+        </div>
+        <div *ngIf="f.subgrupo.invalid && f.subgrupo.touched">
+          <small class="text-danger ml-2"> Subgrupo no válido </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group">
+        <label>Estado de Trámite (*)</label>
+        <div class="input-icon">
+          <select class="form-control" required formControlName="estado">
+            <option selected value="">Nuevo</option>
+            <!-- <option
+            *ngFor="let rol of arrayRoles; let i = index"
+            [value]="rol.id"
+          >
+            {{ rol.desc }}
+          </option> -->
+          </select>
+        </div>
+        <div *ngIf="f.estado.invalid && f.estado.touched">
+          <small class="text-danger ml-2"> Estado no válido </small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>RFC del contratante (*)</label>
+        <input type="text" class="form-control" formControlName="rfc" />
+        <small *ngIf="!f.rfc.valid && f.rfc.touched" class="ml-2 text-danger"
+          >RFC no válido</small
+        >
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group">
+        <label>Tipo de Trámite (*)</label>
+        <div class="input-icon">
+          <select class="form-control" required formControlName="tipoTramite">
+            <option selected value="">Reembolso</option>
+            <!-- <option
+              *ngFor="let rol of arrayRoles; let i = index"
+              [value]="rol.id"
+            >
+              {{ rol.desc }}
+            </option> -->
+          </select>
+        </div>
+        <div *ngIf="f.tipoTramite.invalid && f.tipoTramite.touched">
+          <small class="text-danger ml-2"> Tipo de tráite no válido </small>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="bottom">
+    <button class="btn btn-primary" [disabled]="!form.valid">Exportar</button>
+  </div>
+</div>

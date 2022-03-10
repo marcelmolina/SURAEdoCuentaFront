@@ -1,0 +1,91 @@
+@import "/src/variables.scss";
+
+form {
+  padding: 40px 15%;
+  padding-bottom: 0;
+
+  input {
+    margin-top: 6px;
+  }
+
+  label {
+    margin-left: 20px;
+  }
+
+  .date-range {
+    display: flex;
+    gap: 0px;
+    flex-direction: column;
+
+    .form-group {
+      flex: 1;
+    }
+    .section-dates {
+      display: flex;
+      gap: 20px;
+    }
+  }
+}
+
+.row {
+  display: flex;
+  gap: 20px;
+
+  .form-group {
+    position: relative;
+    flex: 1;
+    margin-bottom: 10px;
+
+    small {
+      position: absolute;
+      left: 0px;
+      bottom: -4px;
+    }
+
+    .form-control {
+      margin-top: 10px;
+    }
+  }
+}
+
+.date-range {
+  width: 49%;
+}
+
+.bottom {
+  justify-content: center;
+}
+
+::ng-deep .selectize-input {
+  border-radius: 25px;
+  height: 40px;
+  color: black;
+  border: 1px solid #ecf0f1;
+  padding-left: 20px;
+  font-family: Arial;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  background-image: url("/assets/img/angle-down.svg");
+  background-size: 10px;
+  background-repeat: no-repeat;
+  background-position: right 20px bottom 10px;
+}
+
+::ng-deep .selectize-control.single .selectize-input:after {
+  visibility: hidden;
+}
+
+::ng-deep
+  .selectize-dropdown.single.plugin-dropdown_direction.plugin-remove_button.direction-down {
+  color: black;
+  font-family: Arial;
+}
+::ng-deep .selectize-control .selectize-input.disabled {
+  opacity: 1;
+  color: rgb(84, 84, 84);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 767px) {
+}

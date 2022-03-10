@@ -1,0 +1,67 @@
+@import "/src/variables.scss";
+
+.header {
+  padding: 0px 15px;
+  height: 78px;
+
+  h3 {
+    font-size: 18px;
+  }
+
+  .logo,
+  .user {
+    cursor: pointer;
+    width: 130px;
+  }
+
+  .user {
+    text-align: right;
+  }
+
+  .menu-item {
+    position: relative;
+
+    .submenu {
+      text-align: left;
+    }
+
+    &:hover {
+      & .submenu {
+        display: block;
+      }
+    }
+  }
+
+  .submenu,
+  .submenu2 {
+    position: absolute;
+    box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%),
+      0 3px 14px 2px rgb(0 0 0 / 12%);
+    background-color: white;
+    font-weight: normal;
+    border-top: 4px solid $primary;
+    display: none;
+    top: 60px;
+    right: 0px;
+    z-index: 10;
+
+    .submenu-item {
+      min-width: 130px;
+      padding: 10px;
+
+      &:hover {
+        background-color: $primary;
+        color: white;
+
+        & .submenu2 {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .submenu2 {
+    top: 40px;
+    right: 130px;
+  }
+}
