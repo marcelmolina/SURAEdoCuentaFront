@@ -18,8 +18,6 @@ RUN npm install && \
 ### STAGE 2: Run ###
 FROM nginxinc/nginx-unprivileged
 
-RUN rm -rf /usr/share/nginx/html/*
-
 COPY --from=build /app/dist/estadoCuenta /usr/share/nginx/html
 
 RUN ls -la /usr/share/nginx/html/
