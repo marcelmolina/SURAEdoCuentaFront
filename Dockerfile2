@@ -1,0 +1,26 @@
+### STAGE 1: Build ###
+FROM node:14.16.0-alpine AS build
+
+WORKDIR /app
+
+ENV PATH /app/node_modules/.bin:$PATH
+
+COPY . .
+#COPY package.*json ./
+
+RUN npm install && \
+    npm run build && \
+    ls -la && \
+    pwd &&\
+    ls -la /app/dist
+
+
+### STAGE 2: Run ###
+FROM nginxinc/nginx-unprivileged
+
+COPY --from=build /app/dist/estadoCuenta /usr/share/nginx/html
+
+RUN ls -la /usr/share/nginx/html/
+
+#### don't know what this is, but seems cool and techy
+CMD ["nginx", "-g", "daemon off;"]
