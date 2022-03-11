@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/api.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-main',
@@ -22,6 +23,9 @@ export class MainComponent implements OnInit {
   getDateFrom: any;
   getDateTo: any;
   tipoReporte = 'comisiones';
+  _baseURL: string;
+  apiBusy = false;
+  errorMsg;
   menu = [
     // {
     //   menu: 'GMM',
@@ -59,7 +63,9 @@ export class MainComponent implements OnInit {
     // },
   ];
 
-  constructor(private fb: FormBuilder, private apiService: ApiService) {}
+  constructor(private fb: FormBuilder, private apiService: ApiService) {
+    this._baseURL = environment.apiURL;
+  }
 
   ngOnInit(): void {
     this.today = new Date();
@@ -150,14 +156,54 @@ export class MainComponent implements OnInit {
   }
 
   getFile(doc) {
+    this.apiBusy = true;
+    this.errorMsg = null;
+
     const { codigo } = this.form.value;
     const desde = this.getFormattedDate(this.dateString1, 'yyyy-mm-dd');
     const hasta = this.getFormattedDate(this.dateString2, 'yyyy-mm-dd');
     const params = { codigo, desde, hasta };
 
-    this.apiService.getFile(params, this.tipoReporte, doc).subscribe((res) => {
-      console.log(res);
-    });
+    // this.apiService.getFile(params, this.tipoReporte, doc).subscribe((res) => {
+    //   console.log(res);
+    // });
+
+    let type;
+
+    if (doc === 'pdf') type = 'application/pdf';
+    else
+      type =
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64';
+
+    const url =
+      `${this._baseURL}/estados-cuenta/agentes/${this.tipoReporte}/${doc}?` +
+      new URLSearchParams(params);
+
+    fetch(url, {
+      method: 'GET',
+      headers: new Headers({
+        Accept: '*/*',
+        responseType: 'arraybuffer',
+      }),
+    })
+      .then((response) => response.blob())
+      .then((blob) => {
+        var file = new Blob([blob], { type });
+        var fileURL = URL.createObjectURL(file);
+
+        var link = document.createElement('a');
+        link.href = fileURL;
+        link.download = fileURL.substr(fileURL.lastIndexOf('/') + 1);
+        link.click();
+
+        this.apiBusy = false;
+      })
+      .catch((error) => {
+        console.log(error);
+        this.apiBusy = false;
+        this.errorMsg =
+          'Se ha producido un error. Por favor intenta mas tarde.';
+      });
   }
 
   changeTipoReporte(e) {

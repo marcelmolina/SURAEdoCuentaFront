@@ -81,9 +81,11 @@
   </div>
 
   <div class="bottom" style="gap: 15px">
+    <div id="loading" *ngIf="apiBusy"></div>
     <button
       class="btn btn-primary"
       (click)="getFile('pdf')"
+      *ngIf="!apiBusy"
       [disabled]="
         form.invalid || !validDate1 || !validDate2 || rangeDate1 > rangeDate2
       "
@@ -93,11 +95,16 @@
     <button
       class="btn btn-primary"
       (click)="getFile('excel')"
+      *ngIf="!apiBusy"
       [disabled]="
         form.invalid || !validDate1 || !validDate2 || rangeDate1 > rangeDate2
       "
     >
       Excel
     </button>
+  </div>
+
+  <div class="error text-danger" *ngIf="errorMsg">
+    {{ errorMsg }}
   </div>
 </div>
