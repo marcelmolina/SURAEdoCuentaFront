@@ -185,25 +185,33 @@ export class MainComponent implements OnInit {
         Accept: '*/*',
         responseType: 'arraybuffer',
       }),
-    })
-      .then((response) => response.blob())
-      .then((blob) => {
-        var file = new Blob([blob], { type });
-        var fileURL = URL.createObjectURL(file);
+    }).then((response) => {
+      if (response.ok)
+        response
+          .blob()
+          .then((blob) => {
+            var file = new Blob([blob], { type });
+            var fileURL = URL.createObjectURL(file);
 
-        var link = document.createElement('a');
-        link.href = fileURL;
-        link.download = fileURL.substr(fileURL.lastIndexOf('/') + 1);
-        link.click();
+            var link = document.createElement('a');
+            link.href = fileURL;
+            link.download = fileURL.substr(fileURL.lastIndexOf('/') + 1);
+            link.click();
 
-        this.apiBusy = false;
-      })
-      .catch((error) => {
-        console.log(error);
+            this.apiBusy = false;
+          })
+          .catch((error) => {
+            console.log(error);
+            this.apiBusy = false;
+            this.errorMsg =
+              'Se ha producido un error. Por favor intenta mas tarde.';
+          });
+      else {
         this.apiBusy = false;
         this.errorMsg =
           'Se ha producido un error. Por favor intenta mas tarde.';
-      });
+      }
+    });
   }
 
   changeTipoReporte(e) {
