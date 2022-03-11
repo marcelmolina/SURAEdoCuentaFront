@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppConstants } from './constants';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +13,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) {
     // this._baseURL = AppConstants.apiBienestar;
-    this._baseURL =
-      'http://sura-edo-cuenta-back-git-siniestros-clientes-dev.apps.qadev-az.segurossura.com.mx/api';
+    this._baseURL = environment.apiURL;
   }
 
   getFile(obj, type, doc): Observable<any> {
