@@ -23,6 +23,7 @@ export class MainComponent implements OnInit {
   getDateFrom: any;
   getDateTo: any;
   tipoReporte = 'comisiones';
+  tipoRol = 'agentes';
   _baseURL: string;
   apiBusy = false;
   errorMsg;
@@ -176,7 +177,7 @@ export class MainComponent implements OnInit {
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64';
 
     const url =
-      `${this._baseURL}/estados-cuenta/agentes/${this.tipoReporte}/${doc}?` +
+      `${this._baseURL}/estados-cuenta/${this.tipoRol}/${this.tipoReporte}/${doc}?` +
       new URLSearchParams(params);
 
     fetch(url, {
@@ -216,5 +217,9 @@ export class MainComponent implements OnInit {
 
   changeTipoReporte(e) {
     this.tipoReporte = e;
+  }
+
+  changeTipoRol(e) {
+    this.tipoRol = e;
   }
 }
