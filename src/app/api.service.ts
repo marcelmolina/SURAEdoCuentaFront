@@ -11,11 +11,13 @@ export class ApiService {
   _baseURL: string;
 
   constructor(private http: HttpClient) {
-    this._baseURL = AppConstants.apiBienestar;
+    // this._baseURL = AppConstants.apiBienestar;
+    this._baseURL =
+      'http://sura-edo-cuenta-back-git-siniestros-clientes-dev.apps.qadev-az.segurossura.com.mx/api';
   }
 
   getFile(obj, type, doc): Observable<any> {
-    const url = `${this._baseURL}/api/estados-cuenta/agentes/${type}/${doc}`;
+    const url = `${this._baseURL}/estados-cuenta/agentes/${type}/${doc}`;
 
     console.log(url);
 
