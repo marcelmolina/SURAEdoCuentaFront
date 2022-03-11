@@ -14,6 +14,21 @@
     <form class="text-secondary text-xsmall" [formGroup]="form">
       <div class="row">
         <div class="form-group">
+          <label>Rol</label>
+          <div class="input-icon">
+            <select
+              class="form-control"
+              (change)="changeTipoRol($event.target.value)"
+            >
+              <option selected value="agentes">Agente</option>
+              <option value="promotores">Promotor</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
           <label>Código del agente (*)</label>
           <input type="text" class="form-control" formControlName="codigo" />
           <small
@@ -73,21 +88,6 @@
             >
               <option selected value="comisiones">Comisiones</option>
               <option value="bonos">Bonos</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="form-group">
-          <label>Rol</label>
-          <div class="input-icon">
-            <select
-              class="form-control"
-              (change)="changeTipoRol($event.target.value)"
-            >
-              <option selected value="agentes">Agente</option>
-              <option value="promotores">Promotor</option>
             </select>
           </div>
         </div>
