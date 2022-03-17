@@ -27,6 +27,7 @@ export class MainComponent implements OnInit {
   _baseURL: string;
   apiBusy = false;
   errorMsg;
+  errorMes;
   menu = [
     // {
     //   menu: 'GMM',
@@ -72,6 +73,8 @@ export class MainComponent implements OnInit {
     this.today = new Date();
     this.form = this.fb.group({
       codigo: [null, Validators.required],
+      mes: [null],
+      anio: [null],
     });
   }
 
@@ -98,8 +101,9 @@ export class MainComponent implements OnInit {
     let x = this.getFormattedDate(e.date, 'yyyy-mm-dd');
     if (x) this.getDateFrom = x.replaceAll('/', '-');
     else this.getDateFrom = x;
-
     this.dateString1 = e.date;
+
+    if (e.date != '') this.f.mes.setValue(null);
   }
 
   setHasta(e) {
@@ -122,6 +126,8 @@ export class MainComponent implements OnInit {
     if (x) this.getDateTo = x.replaceAll('/', '-');
     else this.getDateTo = x;
     this.dateString2 = e.date;
+
+    if (e.date != '') this.f.mes.setValue(null);
   }
 
   getFormattedDate(dateString, format) {
@@ -221,5 +227,23 @@ export class MainComponent implements OnInit {
 
   changeTipoRol(e) {
     this.tipoRol = e;
+  }
+
+  changeMes(e) {
+    const anio = e.split('-')[0];
+    const mes = e.split('-')[1];
+    const clave = this.tipoRol[0].toUpperCase();
+    const params = { mes, anio, clave };
+
+    this.apiService.getPeriodo(params).subscribe(
+      (res) => {
+        this.errorMes = null;
+        this.dateString1 = res.desde;
+        this.dateString2 = res.hasta;
+      },
+      (e) => {
+        this.errorMes = e.error.message;
+      }
+    );
   }
 }

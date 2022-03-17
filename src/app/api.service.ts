@@ -19,9 +19,18 @@ export class ApiService {
   getFile(obj, type, doc): Observable<any> {
     const url = `${this._baseURL}/estados-cuenta/agentes/${type}/${doc}`;
 
-    console.log(url);
+    return this.http
+      .get(url, {
+        headers: new HttpHeaders({
+          Accept: '*/*',
+        }),
+        params: this.cleanObject(obj),
+      })
+      .pipe(map((data) => data));
+  }
 
-    console.log(obj);
+  getPeriodo(obj): Observable<any> {
+    const url = `${this._baseURL}/estados-cuenta/periodo`;
 
     return this.http
       .get(url, {

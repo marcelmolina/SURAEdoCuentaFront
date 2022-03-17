@@ -22,6 +22,7 @@
             >
               <option selected value="agentes">Agente</option>
               <option value="promotores">Promotor</option>
+              <option value="udi">Prestador de Servicios</option>
             </select>
           </div>
         </div>
@@ -31,12 +32,31 @@
         <div class="form-group">
           <label *ngIf="tipoRol == 'agentes'">Código del agente (*)</label>
           <label *ngIf="tipoRol == 'promotores'">Código del promotor (*)</label>
+          <label *ngIf="tipoRol == 'udi'"
+            >Código del prestador de servicios (*)</label
+          >
           <input type="text" class="form-control" formControlName="codigo" />
           <small
             *ngIf="!f.codigo.valid && f.codigo.touched"
             class="ml-2 text-danger"
             >Código del agente no válido</small
           >
+        </div>
+      </div>
+
+      <div class="row" *ngIf="tipoRol != 'udi'">
+        <div class="form-group">
+          <label>Mes y Año</label>
+          <input
+            type="month"
+            class="form-control"
+            formControlName="mes"
+            style="padding-right: 12px"
+            (change)="changeMes($event.target.value)"
+          />
+          <small *ngIf="errorMes" class="ml-2 text-danger"
+            >{{ errorMes }}
+          </small>
         </div>
       </div>
 
@@ -87,8 +107,10 @@
               class="form-control"
               (change)="changeTipoReporte($event.target.value)"
             >
-              <option selected value="comisiones">Comisiones</option>
-              <option value="bonos">Bonos</option>
+              <option selected value="bonos">Bonos</option>
+              <option value="comisiones" *ngIf="tipoRol != 'udi'">
+                Comisiones
+              </option>
             </select>
           </div>
         </div>
