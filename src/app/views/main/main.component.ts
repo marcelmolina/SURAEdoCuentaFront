@@ -22,7 +22,7 @@ export class MainComponent implements OnInit {
   dateString2: any;
   getDateFrom: any;
   getDateTo: any;
-  tipoReporte = 'comisiones';
+  tipoReporte = 'bonos';
   tipoRol = 'agentes';
   _baseURL: string;
   apiBusy = false;
