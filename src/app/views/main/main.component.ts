@@ -243,6 +243,13 @@ export class MainComponent implements OnInit {
       },
       (e) => {
         this.errorMes = e.error.message;
+        this.dateString1 = null;
+        this.dateString2 = null;
+      },
+      () => {
+        setTimeout(() => {
+          this.f.mes.setValue(e);
+        }, 1);
       }
     );
   }
