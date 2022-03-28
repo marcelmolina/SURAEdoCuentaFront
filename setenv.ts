@@ -13,7 +13,7 @@ const apiURL = process.env.apiURL
 // in the process.env object thanks to dotenv
 const environmentFileContent = `export const environment = {
   production: false,
-  apiBienestar: "${apiURL}",
+  apiURL: "${apiURL}",
 };
 `;
 
